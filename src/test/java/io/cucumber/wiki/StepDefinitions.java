@@ -7,9 +7,14 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.github.bonigarcia.wdm.managers.OperaDriverManager;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.testng.Assert;
 
 public class StepDefinitions {
@@ -19,9 +24,30 @@ public class StepDefinitions {
 
     @Before
     public void before(){
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+        if (System.getProperty("browser") == null){
+            initChrome();
+        }else if (System.getProperty("browser").equalsIgnoreCase("chrome") && System.getProperty("browser")!=null){
+            initChrome();
+        }else if (System.getProperty("browser").equalsIgnoreCase("firefox")){
+            WebDriverManager.firefoxdriver().setup();
+            driver = new FirefoxDriver();
+        }else if(System.getProperty("browser").equalsIgnoreCase("safari")){
+            WebDriverManager.safaridriver().setup();
+            driver = new SafariDriver();
+        }else if (System.getProperty("browser").equalsIgnoreCase("edge")){
+            WebDriverManager.edgedriver().setup();
+            driver = new EdgeDriver();
+        }
+
         pages = new Pages(driver);
+    }
+
+    private void initChrome() {
+        WebDriverManager.chromedriver().setup();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("headless");
+//            options.addArguments("window-size=1400,800");
+        driver = new ChromeDriver(options);
     }
 
     @After
