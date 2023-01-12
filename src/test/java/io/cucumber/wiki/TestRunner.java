@@ -6,7 +6,7 @@ import org.testng.annotations.DataProvider;
 
 @CucumberOptions(
         features = "src/test/resources"
-//        tags = "@debug and @loginRelated"
+//        tags = "not @smoke"
 )
 public class TestRunner extends AbstractTestNGCucumberTests {
     @Override
