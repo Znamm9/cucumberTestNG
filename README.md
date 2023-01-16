@@ -3,8 +3,20 @@
 mvn test "-Dcucumber.filter.tags=@smoke"
 ```
 
-## to spin all the tests
+## to spin with different browser use like this:
 ```bash
-mvn -DOS="Windows NT" -Dbrowser=chrome test
+mvn test -Dbrowse=chrome
 ```
+## or
+```bash
+mvn test -Dbrowse=firefox
+```
+## etc...
+
+## to spin headless use -Dheadless=true like below
+```bash
+mvn test -Dheadless=true
+```
+
+Algorythms video: https://cs50.harvard.edu/x/2022/weeks/3/
 
